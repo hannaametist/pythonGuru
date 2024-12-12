@@ -1,5 +1,3 @@
-# pythonGuru
-
 # Python Quiz Game 🐍
 
 A simple console quiz application to test your Python knowledge.
