@@ -1,0 +1,144 @@
+{
+    "questions": [
+        {
+            "question": "Which of the following is the correct syntax for defining a function in Python?",
+            "options": [
+                "def function[]:",
+                "def function():",
+                "def function{}:",
+                "function def()"
+            ],
+            "correct_answer": "def function():"
+        },
+        {
+            "question": "What will print(3 * 'Python') output?",
+            "options": [
+                "PythonPythonPython",
+                "Python*3",
+                "333",
+                "SyntaxError"
+            ],
+            "correct_answer": "PythonPythonPython"
+        },
+        {
+            "question": "Which class is used to represent a sequence of characters in Python?",
+            "options": [
+                "list",
+                "dict",
+                "str",
+                "set"
+            ],
+            "correct_answer": "str"
+        },
+        {
+            "question": "What does the following expression return: len([1, 2, 3, 4])?",
+            "options": [
+                "4",
+                "5",
+                "[4]",
+                "SyntaxError"
+            ],
+            "correct_answer": "4"
+        },
+        {
+            "question": "What is the correct way to import a module in Python?",
+            "options": [
+                "import(module)",
+                "load module",
+                "include module",
+                "import module"
+            ],
+            "correct_answer": "import module"
+        },
+        {
+            "question": "How do you start a single-line comment in Python?",
+            "options": [
+                "#",
+                "//",
+                "/*",
+                "@"
+            ],
+            "correct_answer": "#"
+        },
+        {
+            "question": "Which of these operators is used for exponentiation in Python?",
+            "options": [
+                "**",
+                "^",
+                "*",
+                "//"
+            ],
+            "correct_answer": "**"
+        },
+        {
+            "question": "Which statement correctly creates a dictionary in Python?",
+            "options": [
+                "dict = { \"name\": \"John\", \"age\": 25 }",
+                "dict = ( \"name\": \"John\", \"age\": 25 )",
+                "dict = [ \"name\": \"John\", \"age\": 25 ]",
+                "dict = { \"name\", \"John\", \"age\", 25 }"
+            ],
+            "correct_answer": "dict = { \"name\": \"John\", \"age\": 25 }"
+        },
+        {
+            "question": "What does the break keyword do in a loop?",
+            "options": [
+                "Terminates the loop and skips the rest of the code inside it.",
+                "Skips the current iteration of the loop and continues with the next one.",
+                "Restarts the loop from the beginning.",
+                "Causes an infinite loop."
+            ],
+            "correct_answer": "Terminates the loop and skips the rest of the code inside it."
+        },
+        {
+            "question": "What will the following code print? print(bool(\"\"))",
+            "options": [
+                "True",
+                "False",
+                "None",
+                "Error"
+            ],
+            "correct_answer": "False"
+        },
+        {
+            "question": "What will the following code output? print(\"5\" + \"5\")",
+            "options": [
+                "55",
+                "10",
+                "TypeError",
+                "SyntaxError"
+            ],
+            "correct_answer": "55"
+        },
+        {
+            "question": "Which of the following is the correct way to handle exceptions in Python?",
+            "options": [
+                "try/exception",
+                "try/catch",
+                "try/except",
+                "try/finally"
+            ],
+            "correct_answer": "try/except"
+        },
+        {
+            "question": "Which of the following is the correct syntax for a list comprehension in Python?",
+            "options": [
+                "[expression for item in iterable]",
+                "(expression for item in iterable)",
+                "{expression for item in iterable}",
+                "expression if item in iterable"
+            ],
+            "correct_answer": "[expression for item in iterable]"
+        },
+        {
+            "question": "How do you create a class in Python?",
+            "options": [
+                "class MyClass:",
+                "create class MyClass:",
+                "MyClass()",
+                "class = MyClass()"
+            ],
+            "correct_answer": "class MyClass:"
+        }
+    ]
+}
