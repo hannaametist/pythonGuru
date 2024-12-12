@@ -1,6 +1,7 @@
 # src/quiz.py
 import json
 import random
+import requests
 from pathlib import Path
 
 
@@ -9,6 +10,7 @@ class QuizGame:
         self.score = 0
         self.questions = self._load_questions()
         self.total_questions = len(self.questions)
+        self.api_url = "https://opentdb.com/api.php"
 
     def _load_questions(self):
         # Get absolute path to the dir with data
@@ -26,12 +28,73 @@ class QuizGame:
             print("Error: Wrong file format (need JSON)")
             exit(1)
 
+    def _fetch_api_questions(self, amount=5):
+        # Fetch additional questions from the Open Trivia Database API
+        params = {
+            "amount": amount,
+            "category": 18,  # Computer Science category
+            "type": "multiple",
+            "difficulty": "medium"
+        }
+
+        try:
+            response = requests.get(self.api_url, params=params)
+            response.raise_for_status()
+            data = response.json()
+
+            if data["response_code"] == 0:
+                new_questions = []
+                for q in data["results"]:
+                    # Format API questions to match our structure
+                    options = q["incorrect_answers"] + [q["correct_answer"]]
+                    random.shuffle(options)
+                    new_questions.append({
+                        "question": q["question"],
+                        "options": options,
+                        "correct_answer": q["correct_answer"]
+                    })
+                print(f"\nУспішно завантажено {len(new_questions)} нових питань!")
+                return new_questions
+            else:
+                print("Error: Failed to fetch questions from API")
+                return []
+
+        except requests.RequestException as e:
+            print(f"Error: API connection failed: {e}")
+            return []
+
     def run(self):
         print("\nЛаскаво просимо до Python Quiz!")
-        print(f"У нас є {self.total_questions} питань для вас.")
+        print("\nОберіть режим гри:")
+        print("1. Локальні питання")
+        print("2. Онлайн питання")
+        print("3. Змішаний режим")
+
+        while True:
+            try:
+                mode = int(input("\nВаш вибір (1-3): "))
+                if 1 <= mode <= 3:
+                    break
+                print("Будь ласка, введіть число від 1 до 3")
+            except ValueError:
+                print("Будь ласка, введіть число!")
+
+        # Handle game mode selection
+        if mode == 2:
+            api_questions = self._fetch_api_questions()
+            if api_questions:
+                self.questions = api_questions
+                self.total_questions = len(self.questions)
+        elif mode == 3:
+            api_questions = self._fetch_api_questions()
+            if api_questions:
+                self.questions.extend(api_questions)
+                self.total_questions = len(self.questions)
+
+        print(f"\nУ нас є {self.total_questions} питань для вас.")
         print("Для кожного питання оберіть номер правильної відповіді (1-4)")
 
-        # Stir questions
+        # Create a copy and shuffle questions for randomization
         random_questions = self.questions.copy()
         random.shuffle(random_questions)
 
@@ -39,11 +102,11 @@ class QuizGame:
             print(f"\nПитання {i} з {self.total_questions}:")
             print(question["question"])
 
-            # Show answer options
+            # Display answer options
             for j, option in enumerate(question["options"], 1):
                 print(f"{j}. {option}")
 
-            # Get user answer
+            # Get and validate user input
             while True:
                 try:
                     answer = int(input("\nВаша відповідь (1-4): "))
@@ -53,7 +116,7 @@ class QuizGame:
                 except ValueError:
                     print("Будь ласка, введіть число!")
 
-            # Check answer
+            # Evaluate user's answer
             user_answer = question["options"][answer - 1]
             if user_answer == question["correct_answer"]:
                 print("Правильно! ✅")
@@ -62,7 +125,7 @@ class QuizGame:
                 print(f"Неправильно! ❌")
                 print(f"Правильна відповідь: {question['correct_answer']}")
 
-        # Show result
+        # Display final results
         self.show_results()
 
     def show_results(self):
@@ -75,11 +138,11 @@ class QuizGame:
         if percentage == 100:
             print("Браво! Ну ти справжній Python-гуру! 🏆")
         elif percentage >= 80:
-            print("Ух ти! Глибокі знання Python є, асистент гуру! 🌟")
+            print("Ух ти! Глибокі знання є, вважаємо тебе асистентом гуру! 🌟")
         elif percentage >= 60:
             print("Ну в принципі жити можна! Але є простір для вдосконалення! 📚")
         else:
-            print("Оце ти лушпень! Варто приділити більше уваги вивченню Python! 💪")
+            print("Оце ти лушпень! Варто приділити більше уваги навчанню! 💪")
 
 
 if __name__ == "__main__":
